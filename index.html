@@ -50,12 +50,12 @@
       let total = results[id].attendance + results[id].activity + results[id].assignment + results[id].final;
       let grade = calculateGrade(total);
 
-      resultDiv.innerHTML = `<strong>Name:</strong> ${results[id].name}<br><hr>
-                             <strong>Attendance (10):</strong> ${results[id].attendance}<br>
-                             <strong>Activity (10):</strong> ${results[id].activity}<hr>
+      resultDiv.innerHTML = `<strong>Name:</strong> ${results[id].name}<br>
+                             <strong>Attendance (10):</strong> ${results[id].attendance}
+                             <strong>Activity (10):</strong> ${results[id].activity}
                              <strong>Assignment (20):</strong> ${results[id].assignment}<br>
-                             <strong>Final (60):</strong> ${results[id].final}<br>
-                             <strong>Total (100):</strong> ${total}<br>
+                             <strong>Final (60):</strong> ${results[id].final}
+                             <strong>Total (100):</strong> ${total}
                              <strong>Grade:</strong> ${grade}`;
     } else {
       resultDiv.innerHTML = "❌ Invalid ID or Password. Try again.";
