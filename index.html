@@ -5,9 +5,9 @@
 <title>Student Result Page NPUC</title>
 <style>
   body { font-family: Arial, sans-serif; background-color: #f7f7f7; padding: 50px; }
-  .container { max-width: 400px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+  .container { max-width: 450px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
   h2 { text-align: center; }
-  input[type="text"], input[type="password"] { width: 100%; padding: 10px; margin: 10px 0; border-radius: 4px; border: 1px solid #ccc; }
+  input[type="text"], input[type="password"], input[type="number"] { width: 100%; padding: 10px; margin: 10px 0; border-radius: 4px; border: 1px solid #ccc; }
   button { width: 100%; padding: 10px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
   button:hover { background: #0056b3; }
   .result { margin-top: 20px; padding: 10px; background: #e9ecef; border-radius: 4px; text-align: center; }
@@ -19,18 +19,33 @@
 
   <input type="text" id="studentID" placeholder="Enter your ID (e.g., ID001)">
   <input type="password" id="studentPass" placeholder="Enter Password">
-
   <button onclick="showResult()">Submit</button>
 
   <div class="result" id="result"></div>
+
+  <h3>Change Password</h3>
+  <input type="text" id="changeID" placeholder="Enter your ID">
+  <input type="password" id="oldPass" placeholder="Old Password">
+  <input type="password" id="newPass" placeholder="New Password">
+  <button onclick="changePassword()">Change Password</button>
+
+  <div class="result" id="passChange"></div>
 </div>
 
 <script>
   const results = {
-    "ID001": { pass: "1234", name: "Ilyaas Maxamad Muxumed", score: 88, grade: "B" },
-    "ID002": { pass: "2222", name: "Ayaan Cabdi Xasan", score: 79, grade: "C" },
-    "ID003": { pass: "3333", name: "Mahad Yuusuf Cali", score: 92, grade: "A" }
+    "ID001": { pass: "1234", name: "Ilyaas Maxamad Muxumed", attendance: 8, activity: 9, assignment: 35, final: 55 },
+    "ID002": { pass: "2222", name: "Ayaan Cabdi Xasan", attendance: 7, activity: 8, assignment: 30, final: 50 },
+    "ID003": { pass: "3333", name: "Mahad Yuusuf Cali", attendance: 10, activity: 10, assignment: 37, final: 58 }
   };
+
+  function calculateGrade(total) {
+    if (total >= 90) return "A";
+    if (total >= 80) return "B";
+    if (total >= 70) return "C";
+    if (total >= 60) return "D";
+    return "F";
+  }
 
   function showResult() {
     const id = document.getElementById("studentID").value.trim().toUpperCase();
@@ -38,11 +53,32 @@
     const resultDiv = document.getElementById("result");
 
     if (results[id] && results[id].pass === pass) {
+      let total = results[id].attendance + results[id].activity + results[id].assignment + results[id].final;
+      let grade = calculateGrade(total);
+
       resultDiv.innerHTML = `<strong>Name:</strong> ${results[id].name}<br>
-                             <strong>Score:</strong> ${results[id].score}<br>
-                             <strong>Grade:</strong> ${results[id].grade}`;
+                             <strong>Attendance (10):</strong> ${results[id].attendance}<br>
+                             <strong>Activity (10):</strong> ${results[id].activity}<br>
+                             <strong>Assignment (40):</strong> ${results[id].assignment}<br>
+                             <strong>Final (60):</strong> ${results[id].final}<br>
+                             <strong>Total (100):</strong> ${total}<br>
+                             <strong>Grade:</strong> ${grade}`;
     } else {
       resultDiv.innerHTML = "❌ Invalid ID or Password. Try again.";
+    }
+  }
+
+  function changePassword() {
+    const id = document.getElementById("changeID").value.trim().toUpperCase();
+    const oldP = document.getElementById("oldPass").value.trim();
+    const newP = document.getElementById("newPass").value.trim();
+    const passDiv = document.getElementById("passChange");
+
+    if (results[id] && results[id].pass === oldP) {
+      results[id].pass = newP;
+      passDiv.innerHTML = "✔️ Password changed successfully!";
+    } else {
+      passDiv.innerHTML = "❌ Incorrect ID or Old Password.";
     }
   }
 </script>
