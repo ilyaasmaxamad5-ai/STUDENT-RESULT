@@ -22,11 +22,8 @@ button { padding: 10px 18px; margin-top: 10px; border: none; border-radius: 6px;
 <div id="loginDiv" class="login-box">
   <h2>NPUC Student Login</h2>
 
-  <label>Student ID (Visible)</label>
-  <input id="sid" placeholder="id001, id002, id003, id004, id005">
-
-  <label>Password</label>
-  <input id="pass" type="password" placeholder="Enter password">
+ <input id="sid" placeholder="id001, id002…" autocomplete="off" autocapitalize="none">
+<input id="pass" type="password" placeholder="Enter password" autocomplete="off" autocapitalize="none">
 
   <button type="button" class="btn" onclick="login()">Login</button>
 </div>
