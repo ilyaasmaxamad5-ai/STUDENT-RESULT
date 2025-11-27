@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Student Result Page NPUC</title>
+<style>
+  body { font-family: Arial, sans-serif; background-color: #f7f7f7; padding: 50px; }
+  .container { max-width: 400px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+  h2 { text-align: center; }
+  input[type="text"], input[type="password"] { width: 100%; padding: 10px; margin: 10px 0; border-radius: 4px; border: 1px solid #ccc; }
+  button { width: 100%; padding: 10px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+  button:hover { background: #0056b3; }
+  .result { margin-top: 20px; padding: 10px; background: #e9ecef; border-radius: 4px; text-align: center; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h2>Check Your Result</h2>
+
+  <input type="text" id="studentID" placeholder="Enter your ID (e.g., ID001)">
+  <input type="password" id="studentPass" placeholder="Enter Password">
+
+  <button onclick="showResult()">Submit</button>
+
+  <div class="result" id="result"></div>
+</div>
+
+<script>
+  const results = {
+    "ID001": { pass: "1234", name: "Ilyaas Maxamad Muxumed", score: 88, grade: "B" },
+    "ID002": { pass: "2222", name: "Ayaan Cabdi Xasan", score: 79, grade: "C" },
+    "ID003": { pass: "3333", name: "Mahad Yuusuf Cali", score: 92, grade: "A" }
+  };
+
+  function showResult() {
+    const id = document.getElementById("studentID").value.trim().toUpperCase();
+    const pass = document.getElementById("studentPass").value.trim();
+    const resultDiv = document.getElementById("result");
+
+    if (results[id] && results[id].pass === pass) {
+      resultDiv.innerHTML = `<strong>Name:</strong> ${results[id].name}<br>
+                             <strong>Score:</strong> ${results[id].score}<br>
+                             <strong>Grade:</strong> ${results[id].grade}`;
+    } else {
+      resultDiv.innerHTML = "❌ Invalid ID or Password. Try again.";
+    }
+  }
+</script>
+</body>
+</html>
